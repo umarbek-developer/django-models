@@ -48,4 +48,12 @@ class Student(models.Model):
         return f"{self.name} {self.age}"
     
 
+class Company(models.Models):
+    company_name = models.CharField(max_length=255)
+    founded_year = models.SmallIntegerField(default=0, null=True)
+    owner_name = models.CharField(max_length=50)
+    address = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.company_name} {self.address}"
 

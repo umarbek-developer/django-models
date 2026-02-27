@@ -56,4 +56,10 @@ class Company(models.Model):
 
     def __str__(self):
         return f"{self.company_name} {self.address}"
+    
+
+    class Meta:
+        verbose_name = "Company"
+        verbose_name_plural ="Companies"
+        ordering = ['company_name', 'founded_year']
 

@@ -63,3 +63,51 @@ class Company(models.Model):
         verbose_name_plural ="Companies"
         ordering = ['company_name', 'founded_year']
 
+
+
+
+
+class Group(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
+    universitet = models.ForeignKey(Universitet, on_delete=models.CASCADE)
+    students = models.ManyToManyField(Student, blank=True)
+    group_number = models.CharField(max_length=50)
+    students_count = models.PositiveSmallIntegerField(default=0)
+    start_date = models.DateField(blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    start_time = models.TimeField(blank=True, null=True)
+    end_time = models.TimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.teacher} {self.universitet} {self.students_count}"
+
+
+
+
+class StudentDavomat(models.Model):
+    class BahoChoice(models.IntegerChoices):
+        BESH = 5, "5-baho"
+        TORT = 4, "4-baho"
+        UCH = 3, "3-baho"
+        IKKI = 2, "2-baho"
+        BIR = 1, "1-baho"
+        NOL = 0, "0-baho"
+
+    class StatusChoice(models.TextChoices):
+        KELDI = "keldi", "keldi"
+        ONLINE = "online", "Online Qatnashdi"
+        SABABLI = "sababli", "Sababli kelmagan"
+        YOQ = "yoq", "Darsga kelmagan"
+        
+
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
+    baho = models.IntegerField(choices=BahoChoice.choices, default=BahoChoice.NOL)
+    status = models.CharField(max_length=50, choices=StatusChoice.choices, default=StatusChoice.KELDI)
+    created_at = models.DateField(auto_now_add=50)
+
+    def __str__(self):
+        return f"{self.status} {self.baho}"
+
